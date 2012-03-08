@@ -1,0 +1,21 @@
+body {background:url(../img/circles.png) #fff}
+#headbg {-moz-box-shadow:0 4px 6px #999;-webkit-box-shadow:0 4px 6px #999;box-shadow:0 4px 6px #999;background: #3f4c6b; /* Old browsers */
+background: -moz-linear-gradient(top, #3f4c6b 0%, #5e6fa0 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3f4c6b), color-stop(100%,#5e6fa0)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #3f4c6b 0%,#5e6fa0 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #3f4c6b 0%,#5e6fa0 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #3f4c6b 0%,#5e6fa0 100%); /* IE10+ */
+background: linear-gradient(top, #3f4c6b 0%,#5e6fa0 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f4c6b', endColorstr='#5e6fa0',GradientType=0 ); /* IE6-9 */
+;
+}
+#headbg h1 {color:#ddd;}
+#bodybg {background:#fff;-moz-box-shadow:0 4px 6px #999;-webkit-box-shadow:0 4px 6px #999;box-shadow:0 4px 6px #999;}
+#mainheader {}
+#mainarticle {background:#fff}
+#mainfoot {background:none;margin-top:1em;color:#888}
+ul li:before {content: "\00BB \0020"; }
+ul {list-style: none; margin-left: 0; padding-left: 1em; text-indent: -1em; }
+
+.prebox {-moz-box-shadow:0 4px 6px #999;-webkit-box-shadow:0 4px 6px #999;box-shadow:0 4px 6px #999;padding:4px;margin-bottom:1em;}
+.larger {font-size:1.5em;border:3px solid #eee;padding:20px}

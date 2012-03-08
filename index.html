@@ -1,9 +1,121 @@
-<html>
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-<title>m410 :: Github</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title></title>
+  <meta name="description" content="Scala and Yaml based build tool and web framework">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection">
+  <link rel="stylesheet" href="css/print.css" type="text/css" media="print">
+  <!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/libs/modernizr-2.5.3.min.js"></script>
+  <script type="text/javascript" src="js/shCore.js"></script>
+	<script type="text/javascript" src="js/shBrushScala.js"></script>
+	<script type="text/javascript" src="js/shBrushYaml.js"></script>
+	<link type="text/css" rel="stylesheet" href="css/shCoreEclipse.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
 </head>
 <body>
-<h1>M410 Projects on Github</h1>
-
+  <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+<div id="bodybg">	  
+	<div id="headbg">
+		<header id="mainheader" class="container">
+		  <h1 id="m410" >m410.github.com</h1>
+	  </header>
+	</div>
+  <div id="mainarticle" >
+	<div class="container" role="main">
+		<secion class="span-24 last prepend-top append-bottom">
+			<div class="prebox larger">
+				<pre class="brush: scala gutter: false">
+class Application(config:WebAppConfiguration) extends WebApp(config) {
+  def makeServices = List.empty[AnyRef]
+  def makeControllers = List(proxyInstance[PersonController]() )
+}
+// Straight forward jpa domain
+@Entity @Table(name="person")
+class Person {
+	@Id @GeneratedValue(strategy= GenerationType.AUTO) var id:jLng = _
+	@Version var version:jInt = _
+	var firstName:String = _
+	var lastName:String = _
+}
+// companion 'Data Access Object'
+object Person extends JpaDao[Person,jLng]
+// controller with standard Create read update delete
+class PersonController extends CrudController("persons",Person)
+				</pre>
+			</div>
+		</secion>
+		<secion class="span-8 border">
+			<h2>Fab(ricate)</h2>
+			<div class="prebox"><pre class="brush: yaml gutter: false">
+							application:
+							  name: test
+						</pre></div>
+			<p>Fabricate is a declarative modular project management and build tool, similar to maven but more domain
+				specific and more concise.</p>
+				<ul>
+					<li><a href="javascript:false">Getting Started</a></li>
+					<li><a href="javascript:false">Source Code on Github</a></li>
+					<li><a href="javascript:false">Wiki on Github</a></li>
+					<li><a href="javascript:false">Issue tracking</a></li>
+				</ul>
+		</secion>
+		<secion class="span-8 border">
+			<h2>Brzy Webapp</h2>
+			<p>Brzy webapp is a simple Scala, Action based, RESTful and robust web application framework built on top of Fab(ricate).</p>
+			<ul>
+					<li><a href="javascript:false">Getting Started</a></li>
+					<li><a href="javascript:false">Source Code on Github</a></li>
+					<li><a href="javascript:false">Controller Reference</a></li>
+					<li><a href="javascript:false">Configuration Reference</a></li>
+					<li><a href="javascript:false">Issue tracking</a></li>
+				</ul>
+		</secion>
+		<secion class="span-8 last">
+			<h2>Calista</h2>
+			<p>Calista is a client api for Cassandra written in Scala.</p>
+						<ul>
+					<li><a href="javascript:false">Source Code on Github</a></li>
+					<li><a href="javascript:false">Wiki</a></li>
+					<li><a href="javascript:false">Issue tracking</a></li>
+				</ul>
+			<h3>Other projects</h3>
+						<ul>
+					<li><a href="javascript:false">Scala Library Archetype</a>
+						<p>Like the Brzy webapp, this is an Fab(ricate) archetype to build a simple scala jar.</p>
+					</li>	
+					<li><a href="javascript:false">Scala Bean Validation</a><br>
+						<p>A validation api built with the java bean api used to validate scala bean classes.</p>
+					</li>
+					<li><a href="javascript:false">Scala Bean Wrapper</a><br>
+						<p>Similar to the Spring bean wrapper, it's used to create scala classes from a map of properties.</p>
+					</li>
+						<li><a href="javascript:false">Sample Applications</a><br>
+						<p>Some running examples of using the framework.</p>
+					</li>
+				</ul>
+		</secion></div>
+  </div>
+</div>  
+<footer id="mainfoot" class="container">
+	<p>m410 apache license</p>
+</footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+<script src="js/plugins.js"></script>
+<script src="js/script.js"></script>
+<script>
+var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
 </body>
 </html>
