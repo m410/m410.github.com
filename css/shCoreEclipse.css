@@ -44,7 +44,7 @@
   vertical-align: baseline !important;
   width: auto !important;
   box-sizing: content-box !important;
-  font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
+  /*font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;*/
   font-weight: normal !important;
   font-style: normal !important;
   font-size: 1em !important;
@@ -92,7 +92,7 @@
   width: 100% !important;
   height: 100% !important;
   border: none !important;
-  background: white !important;
+  background: none !important;
   padding-left: 1em !important;
   overflow: hidden !important;
   white-space: pre !important;
@@ -226,19 +226,19 @@
 }
 
 .syntaxhighlighter {
-  background-color: white !important;
+  background-color: none !important;
 }
 .syntaxhighlighter .line.alt1 {
-  background-color: white !important;
+  background-color: none !important;
 }
 .syntaxhighlighter .line.alt2 {
-  background-color: white !important;
+  background-color: none !important;
 }
 .syntaxhighlighter .line.highlighted.alt1, .syntaxhighlighter .line.highlighted.alt2 {
   background-color: #c3defe !important;
 }
 .syntaxhighlighter .line.highlighted.number {
-  color: white !important;
+  color: none !important;
 }
 .syntaxhighlighter table caption {
   color: black !important;
@@ -251,7 +251,7 @@
 }
 .syntaxhighlighter .gutter .line.highlighted {
   background-color: #d4d0c8 !important;
-  color: white !important;
+  color: none !important;
 }
 .syntaxhighlighter.printing .line .content {
   border: none !important;
@@ -261,7 +261,7 @@
 }
 .syntaxhighlighter.collapsed .toolbar {
   color: #3f5fbf !important;
-  background: white !important;
+  background: none !important;
   border: 1px solid #d4d0c8 !important;
 }
 .syntaxhighlighter.collapsed .toolbar a {

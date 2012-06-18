@@ -25,7 +25,9 @@
 <div id="bodybg">	  
 	<div id="headbg">
 		<header id="mainheader" class="container">
-		  <h1 id="m410" >m410.github.com</h1>
+		  <div class="span-24 prepend-top last">
+		  <h1 id="m410" >m410.github.com (brzy.org)</h1>
+			</div>
 	  </header>
 	</div>
   <div id="mainarticle" >
@@ -33,79 +35,105 @@
 		<secion class="span-24 last prepend-top append-bottom">
 			<div class="prebox larger">
 				<pre class="brush: scala gutter: false">
+// -- Application 
 class Application(config:WebAppConfiguration) extends WebApp(config) {
   def makeServices = List.empty[AnyRef]
-  def makeControllers = List(proxyInstance[PersonController]() )
+  def makeControllers = List(proxyInstance[PersonController]())
 }
-// Straight forward jpa domain
-@Entity @Table(name="person")
-class Person {
-	@Id @GeneratedValue(strategy= GenerationType.AUTO) var id:jLng = _
-	@Version var version:jInt = _
-	var firstName:String = _
-	var lastName:String = _
+
+// -- JPA domain class
+@Entity class Person {
+  @BeanProperty @Id @GeneratedValue(strategy= GenerationType.AUTO) var id:jLng = _
+  @BeanProperty var name:String = _
 }
-// companion 'Data Access Object'
+
+// -- 'Data Access Object' companion object
 object Person extends JpaDao[Person,jLng]
-// controller with standard Create read update delete
+
+// -- Controller with default Create Read Update and Delete actions
 class PersonController extends CrudController("persons",Person)
 				</pre>
 			</div>
 		</secion>
-		<secion class="span-8 border">
-			<h2>Fab(ricate)</h2>
-			<div class="prebox"><pre class="brush: yaml gutter: false">
-							application:
-							  name: test
-						</pre></div>
-			<p>Fabricate is a declarative modular project management and build tool, similar to maven but more domain
-				specific and more concise.</p>
+
+		</div>
+
+<div id="content" >
+<div class="container">
+<secion class="span-8 prepend-top append-bottom">
+	<div class="panel">
+		<h2>Fab(ricate)</h2>
+				<p>Fabricate is a declarative modular project management and build tool, similar to maven but more domain
+					specific and more concise.  Below is a minimal scala library project configuration example.</p>
+					<div class="prebox"><pre class="brush: yaml gutter: false">
+application:
+  name: &name test
+  org: co.myco.proj
+  version: 0.8.1
+  author: My Name
+  description: &desc An App
+dependencies:
+  - {conf: compile, org: joda-time, name: joda-time, rev: "2.0" }
+  - {conf: compile, org: commons-lang, name: commons-lang, rev: "2.6", transitive: false}
+</pre></div>
+					<ul>
+						<li><a href="javascript:false">Getting Started</a></li>
+						<li><a href="javascript:false">Source Code on Github</a></li>
+						<li><a href="javascript:false">Wiki on Github</a></li>
+						<li><a href="javascript:false">Issue tracking</a></li>
+					</ul>
+			</div>
+</secion>
+<secion class="span-8 prepend-top append-bottom">
+	<div class="panel">
+		<h2>Brzy Webapp</h2>
+				<p>Brzy webapp is a simple Scala, Action based, RESTful, modular, robust web application framework built on 
+					top of Fab(ricate). The code snippet above shows a minimal working application without views or 
+					configuration.</p>
 				<ul>
-					<li><a href="javascript:false">Getting Started</a></li>
-					<li><a href="javascript:false">Source Code on Github</a></li>
-					<li><a href="javascript:false">Wiki on Github</a></li>
-					<li><a href="javascript:false">Issue tracking</a></li>
-				</ul>
-		</secion>
-		<secion class="span-8 border">
-			<h2>Brzy Webapp</h2>
-			<p>Brzy webapp is a simple Scala, Action based, RESTful and robust web application framework built on top of Fab(ricate).</p>
-			<ul>
-					<li><a href="javascript:false">Getting Started</a></li>
-					<li><a href="javascript:false">Source Code on Github</a></li>
-					<li><a href="javascript:false">Controller Reference</a></li>
-					<li><a href="javascript:false">Configuration Reference</a></li>
-					<li><a href="javascript:false">Issue tracking</a></li>
-				</ul>
-		</secion>
-		<secion class="span-8 last">
-			<h2>Calista</h2>
-			<p>Calista is a client api for Cassandra written in Scala.</p>
-						<ul>
-					<li><a href="javascript:false">Source Code on Github</a></li>
-					<li><a href="javascript:false">Wiki</a></li>
-					<li><a href="javascript:false">Issue tracking</a></li>
-				</ul>
-			<h3>Other projects</h3>
-						<ul>
-					<li><a href="javascript:false">Scala Library Archetype</a>
-						<p>Like the Brzy webapp, this is an Fab(ricate) archetype to build a simple scala jar.</p>
-					</li>	
-					<li><a href="javascript:false">Scala Bean Validation</a><br>
-						<p>A validation api built with the java bean api used to validate scala bean classes.</p>
-					</li>
-					<li><a href="javascript:false">Scala Bean Wrapper</a><br>
-						<p>Similar to the Spring bean wrapper, it's used to create scala classes from a map of properties.</p>
-					</li>
-						<li><a href="javascript:false">Sample Applications</a><br>
-						<p>Some running examples of using the framework.</p>
-					</li>
-				</ul>
-		</secion></div>
+						<li><a href="javascript:false">Getting Started</a></li>
+						<li><a href="javascript:false">Source Code on Github</a></li>
+						<li><a href="javascript:false">Controller Reference</a></li>
+						<li><a href="javascript:false">Configuration Reference</a></li>
+						<li><a href="javascript:false">Issue tracking</a></li>
+					</ul>
+          <ul>
+							<li><a href="javascript:false">Sample Applications</a><br>
+							<p>Some running examples of using the framework.</p>
+						</li>
+					</ul>
+				</div>
+</secion>
+<secion class="span-8 prepend-top append-bottom last">
+	<div class="panel">
+		<h2>Calista</h2>
+				<p>Calista is a client api for Cassandra written in Scala.</p>
+							<ul>
+						<li><a href="javascript:false">Source Code on Github</a></li>
+						<li><a href="javascript:false">Wiki</a></li>
+						<li><a href="javascript:false">Issue tracking</a></li>
+					</ul>
+				<h3>Other projects</h3>
+							<ul>
+						<li><a href="javascript:false">Scala Library Archetype</a>
+							<p>Like the Brzy webapp, this is an Fab(ricate) archetype to build a simple scala jar.</p>
+						</li>	
+						<li><a href="javascript:false">Scala Bean Validation</a><br>
+							<p>A validation api built with the java bean api used to validate scala bean classes.</p>
+						</li>
+						<li><a href="javascript:false">Scala Bean Wrapper</a><br>
+							<p>Similar to the Spring bean wrapper, it's used to create scala classes from a map of properties.</p>
+						</li>
+					</ul>
+				</div>
+</secion>
   </div>
+  </div>
+
+</div>  
 </div>  
 <footer id="mainfoot" class="container">
-	<p>m410 apache license</p>
+	<p>Apache License 2.0</p>
 </footer>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
