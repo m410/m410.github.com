@@ -50,7 +50,7 @@ class Application(config:WebAppConfiguration) extends WebApp(config) {
 
 // -- Data Access Object
 trait PersonComponent {
-  impicit class PersonRichOps(o:Person) extends JpaCrudOps(o)
+  implicit class PersonRichOps(o:Person) extends JpaCrudOps(o)
   class PersonStore extends JpaStore[JLong, TrackerAccount]
   val personStore = new PersonStore
 } 
