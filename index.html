@@ -37,21 +37,28 @@
 				<pre class="brush: scala gutter: false">
 // -- Application 
 class Application(config:WebAppConfiguration) extends WebApp(config) {
-  def makeServices = List.empty[AnyRef]
-  def makeControllers = List(proxyInstance[PersonController]())
+  override val controllers = super.controllers ++ List( 
+    new PersonController with PersonComponent
+  )
 }
 
 // -- JPA domain class
 @Entity class Person {
-  @BeanProperty @Id @GeneratedValue(strategy= GenerationType.AUTO) var id:jLng = _
+  @BeanProperty @Id @GeneratedValue(strategy=AUTO) var id:jLng = _
   @BeanProperty var name:String = _
 }
 
-// -- 'Data Access Object' companion object
-object Person extends JpaDao[Person,jLng]
+// -- Data Access Object
+trait PersonComponent {
+  impicit class PersonRichOps(o:Person) extends JpaCrudOps(o)
+  class PersonStore extends JpaStore[JLong, TrackerAccount]
+  val personStore = new PersonStore
+} 
 
 // -- Controller with default Create Read Update and Delete actions
-class PersonController extends CrudController("persons",Person)
+class PersonController extends CrudController[jLng,Person]("persons") {
+  self: PersonComponent =>
+}
 				</pre>
 			</div>
 		</secion>
