@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>m410: Java 8 Web Framework</title>
+    <meta name="viewport" content="width=device-width">
+    <link type="text/css" rel="stylesheet" href="_/css/resets.css">
+    <link type="text/css" rel="stylesheet" href="_/css/layout.css">
+    <link type="text/css" rel="stylesheet" href="_/css/typography.css">
+    <link type="text/css" rel="stylesheet" href="_/css/style.css">
+    <link type="text/css" rel="stylesheet" href="_/css/shCoreDefault.css">
+    <!--[if lt IE 9]> <script src="_/js/vendor/html5shiv.js"></script> <![endif]-->
+    <style>pre{border:none}</style>
+</head>
+<body>
+
+<div class="header-band">
+    <header class="container row">
+        <div class="col span_4">
+            <img class="logo" src="_/images/m410_logo.png" alt=""/>
+        </div>
+        <div class="col span_8">
+            <nav>
+                <ul class="super-nav">
+                    <li class="active"><a href="index.html">Home</a></li>
+                    <li><a class="active" href="features.html">Features</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="javadoc/current/index.html" target="_blank">JavaDoc</a></li>
+                    <li><a href="http://repo.m410.org/content/repositories/releases/" target="_blank">Repo</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+</div>
+
+<div class="article-band">
+
+    <article class="container row">
+        <section class="col span_12">
+            <h1>Features</h1>
+
+
+            <h2>Open source</h2>
+
+            <p>The source is freely available with the apache 2.0 license on github.
+            </p>
+            <ul class="std">
+                <li><a href="https://github.com/m410/m410-mvc" target="_blank">https://github.com/m410/m410-mvc</a></li>
+                <li><a href="https://github.com/m410/m410-maven" target="_blank">https://github.com/m410/m410-maven</a></li>
+                <li><a href="https://github.com/m410/m410-seed" target="_blank">https://github.com/m410/m410-seed</a></li>
+            </ul>
+
+            <h2>Java 8 Improved</h2>
+
+            <p>Many of the design approaches I'm taking wouldn't be possible without some of the new
+                features in java 8.  Like default methods in interfaces, and Lamda's.  I'm also taking
+                some lessons learned from Groovy and Scala to and applying them to java.  Most notably
+                extensive use of immutability and the builder design pattern.
+            </p>
+
+            <h2>Simplified Configuration</h2>
+
+            <p>The entire project is build around the idea there there should be a single configuration
+                file at the root of the project that maintains all declarative information for the project.
+                But for now it must include a maven pom as well, but in the long term I intend to have
+                a build system intended to be transparent underneath the the yml configuration file.
+            </p>
+
+            <pre class="prettyprint  lang-yaml">
+application:
+  name: &name demo-app
+  organization: m410
+  version: 1.0.0
+  package_name: &package org.m10.demo
+  application_class: *package.MyApplication
+  author: John Doe
+  description: &desc My Demo App
+            </pre>
+
+            <h2>No Annotations, No XML, No AOP</h2>
+
+            <p>It's not java annotation free, but back to where java annotations should be used.  They've
+                been abused in my opinion, like how xml was overused a few years ago and this is my attempt to roll
+                them back a bit.
+            </p>
+
+            <h2>Type safe application wiring and pseudo multiple inheritance</h2>
+
+            <p>Instead of using reflection and annotations or xml configuration files, m410 takes a two prong approach
+                of a single configuration file in yaml  (explained above) and a Application class to assemble you project.  The
+                advantage is the compile time type checking that is missing from those methods and a single location
+                for all configuration instead of being spread out among a half dozen or more files.  This leads
+                to greater code reliability, code comprehension and easier long term maintenance.
+            </p>
+            <!--<pre class="brush: java; ruler: false: gutter: false; toolbar: false;">-->
+            <pre class="prettyprint">
+public class MyApplication extends Application implements JpaModule, JmsModule, MailModule, OrmModule {
+    @Override public List&lt;Ctlr&gt; makeControllers(Configuration c) {
+        return ImmutableList.of(
+                new HomeController(),
+                new PersonController()
+         );
+    }
+}
+            </pre>
+            <h2>Simple Controllers</h2>
+
+            <p>Below is an example controller.  There is built in support for authentication, authorization, json, xml
+                and file upload download, not to mention good old fashion jsp's or other more modern view technologies.
+            </p>
+            <!--<pre class="brush: java; ruler: false: gutter: false; toolbar: false;">-->
+            <pre class="prettyprint">
+public class HomeController extends Controller {
+    public HomeController() { super(""); }
+    @Override public List&lt;ActionDefinition&gt; actions() {
+        return ImmutableList.of(
+            get("", home),
+            get("{id:\\d+}", view)
+        );
+    }
+    Action home = req -> respond().withView("/index.jsp");
+    Action view = req -> respond().withModel("name","value").withView("/view.jsp");
+}
+            </pre>
+            <h2>Programatic Persistence</h2>
+            <p>Instead of peppering you entity classes with annotations, this uses the builder pattern and default
+            methods on interfaces to create the persistence configuration.</p>
+            <pre class="prettyprint">
+public class Person extends OptimisticLockingId&lt;Long&gt; {
+    private String email;
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    @Override public String toString() {
+        return new ToStringBuilder(this)
+            .append("id",getId())
+            .append("email", email)
+            .toString();
+    }
+}
+
+interface PersonEntityFactory extends EntityFactory {
+    @Override default Entity makeEntity() {
+        return entity("org.m410.arch.person.Person","person")
+            .id("id", generatedValue("SEQUENCE", "generator"), sequenceGenerator("generator", "person_seq"))
+            .version("version")
+            .basic("email", column("email",124))
+            .make();
+    }
+}
+            </pre>
+            <h2>Missing Functionality and Future goals</h2>
+            <ul>
+                <li>The orm.xml, persistence.xml, and web.xml file generation has enough done to run the demo
+                application but little else.</li>
+                <li>No Authentication or authorization abilities</li>
+                <li>Service Life cycle management.</li>
+                <li>Action eventually will be able to have more than one action on a url and call it depending
+                on the content type.</li>
+                <li>Need a simple bean builder as part of a controller.</li>
+                <li>A bean validation framework preferably without annotations.</li>
+                <li>Much of the configuration.m410.yml file is not used.  Most importantly the environment section.</li>
+                <li>My long term goals include my own build system that's solely based on the yml file and does
+                    not require maven.  Maven is a temporary stopgap. </li>
+                <li>Along with the xml file generation, much of the configuration file is not mapped to an object.</li>
+                <li>Internationalization</li>
+                <li>Find the official list on github at
+                    <a href="https://github.com/m410/m410-mvc/issues?state=open" target="_blank">https://github.com/m410/m410-mvc/issues?state=open</a>
+                </li>
+            </ul>
+        </section>
+    </article>
+
+</div>
+
+<div class="footer-band">
+    <footer class="container row">
+        <div class="col span_6">
+            <p>
+                <a class="eapps-link" href="http://www.eapps.com/services/general-vps-hosting.php">
+                    <img src="http://www.eapps.com/images/logos/eapps_hosted_border.gif" alt="VPS hosting" title="VPS hosting">
+                </a>
+            </p>
+
+        </div>
+
+        <div class="col span_6">
+            <p>Licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License
+                2.0</a></p>
+
+        </div>
+    </footer>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="_/js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+<script src="_/js/vendor/respond.min.js"></script>
+<!--<script src="_/js/vendor/xregexp-min.js.css"></script>-->
+<!--<script src="_/js/vendor/shCore.js"></script>-->
+<!--<script src="_/js/vendor/shBrushJava.js"></script>-->
+<!--<script type="text/javascript">XRegExp.install('natives');SyntaxHighlighter.all();</script>-->
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=java&lang=yaml"></script>
+<script src="https://google-code-prettify.googlecode.com/svn/trunk/src/lang-yaml.js"></script>
+</body>
+</html>

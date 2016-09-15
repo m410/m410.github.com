@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="US_en">
+  <head>
+    <title>m410 Java Framework</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic' rel='stylesheet' type='text/css'>
+    <link type="text/css" rel="stylesheet" href="_/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="_/css/bootstrap-theme.min.css">
+    <link type="text/css" rel="stylesheet" href="_/css/shCoreDefault.css"/>
+    <link type="text/css" rel="stylesheet" href="_/css/m410-style.css">
+
+    <script type="text/javascript" src="_/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="_/js/bootstrap.min.js"></script>
+	  <script type="text/javascript" src="_/js/shCore.js"></script>
+	  <script type="text/javascript" src="_/js/shBrushJava.js"></script>
+	  <script type="text/javascript" src="_/js/shBrushYaml.js"></script>
+	  <script type="text/javascript">SyntaxHighlighter.all();</script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">m410</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#fabricate">Fab(ricate)</a></li>
+            <li><a href="#garden">Garden</a></li>
+            <li><a href="#info">Info/Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+<div class="garden">
+
+
+
+  </div>
+  <section class="container">
+    <div class="banner">
+      <h1>m410 Java Framework</h1>
+      <p class="lead">A java Build and web framework.</p>
+    </div>
+  </section>
+    <section class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <header>
+            <h2>What &amp; Why</h2>
+          </header>
+        </div>
+        <div class="col-lg-4">
+          <p>
+            Yup, that’s right, this is yet another web framework. Yes there are many of them for java, so why
+            did I write this one, you may ask. After using Groovy and Scala quiet a bit over the last few
+            years and woo’d by the promise of java 8, I wanted to take some lessons learned from those
+            languages and frameworks to write a simple light weight framework with java 8’s new features.
+          </p>
+          <p>So, A goal from the start was to use one configuration file, which took me down a path of writing my own</p>
+        </div>
+        <div class="col-lg-4">
+          <p>
+              build tool.  It’s done in yaml, a more readable and compact format than xml, yet still
+              declarative instead of using a groovy or ruby dsl.  Even the title of the file tells
+              you what kind of project is in that directory.
+          </p>
+          <p>Over the years java has become very dependent on annotations and refection so you could
+            say the approach I’ve taken with this framework could be called</p>
+        </div>
+        <div class="col-lg-4">
+          <p>
+              compiler first web development. The compiler is your first defense again bugs, but java
+              libraries and project seem to have become very comfortable with the annotation first
+              programming. It’s not necessarily bad, but why not take advantage of the compiler and
+              catch bugs earlier in the development process. Fewer annotations means less refection
+              and better performance as well. And thanks to some new features of java8 can can be much
+              easier now.
+          </p>
+        </div>
+      </div>
+    </section>
+    <div class="fab-background">
+    <section class="container">
+      <hr>
+      <a name="fabricate"></a>
+      <header class="starter-template">
+        <h1>Fab(ricate): Build Tool</h1>
+      </header>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="text-lg-pre mf-green">
+            <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+          </div>
+          <p>
+            Fabricate is a declaritve domain specific build tool using Yaml, and written in java.  It’s
+            based on the idea the type of project should determine the specific build tasks.  The project
+            is an application in of itself.  Adding modules extends if functionality.  Life cycle management.
+          </p>
+
+          <h3>Get Started</h3>
+          <p><a href="https://github.com/m410/fab#fabricate--command-line-application-installer" target="_blank">Follow
+            the instructions found here.</a> <br></p>
+          <p>Either Create a project by <a href="https://github.com/m410/example-garden" target="_blank">cloning
+            the sample project</a></p>
+        </div>
+        <div class="col-lg-6">
+
+          <div class="panel panel-default">
+  <div class="panel-body">
+    <pre class="brush: yaml">
+archetype:
+  version: 0.1-SHAPSHOT
+  name: java-lib
+  organization: org.m410.fab
+
+application:
+  name: demo-lib
+  org: org.m410.demo
+  version: "0.1"
+  description: Sample java library
+
+dependencies:
+  - { scope: compile, org: org.apache.commons, name: commons-lang3, rev: 3.3.2 }
+
+modules:
+  - name: garden-junit
+    organization: org.m410.garden
+    version: "0.1"
+    </pre>
+  </div>
+  <div class="panel-footer">Example Library configuration file: java-lib.fab.yml</div>
+</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <h3>Modular</h3>
+          <p>
+            Fabricate can extend functionality with modules, modules add functionality like build tasks,
+            application resources and dependencies.
+
+          </p>
+        </div>
+        <div class="col-lg-4">
+          <h3>Domain Driven</h3>
+          <p>
+            Domain drivin means application properties can affect and be affected by the build process.  The
+            build tool is an extension of the application you are trying to create.
+          </p>
+        </div>
+        <div class="col-lg-4">
+          <h3>Centralized</h3>
+          <p>
+            There is just one configuration file for the entire project.  One of the major goals was to
+            consolidate configuration.  Other than source code, the only other configuration file that
+            is needed is the build configuration file.  For example, there is no need to create and
+            maintain the persistence.xml and web.xml file.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+    <section class="container">
+    <hr>
+      <a name="garden"></a>
+      <header class="starter-template">
+        <h1>Garden: Modular, Rapid, Java8, Web MVC Framework</h1>
+      </header>
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="panel panel-default">
+  <div class="panel-body">
+    <pre class="brush: java">
+// Application Assembly Class
+public final class DemoApplication extends Application implements JpaModule {
+    PersonDao personDao = new PersonDaoImpl();
+    PersonService personService = new PersonServiceImpl(personDao);
+
+    @Override public List&lt;HttpCtrl&gt; makeControllers(Configuration c) {
+        return ImmutableList.of( new PersonController(personService));
+    }
+}
+
+// Example Controller
+public final class PersonController extends Controller {
+    private final PersonService personService;
+
+    public PersonController(PersonService service) {
+        super("persons");
+        this.personService = service;
+    }
+
+    @Override public List&lt;? extends HttpActionDefinition&gt; actions() {
+        return ImmutableList.of(
+            get("", list),
+            post("", save),
+        );
+    }
+
+    Action list = req -&gt; respond().asJson(personService.list());
+
+    Action save = request -&gt; {
+        personService.save(gson.fromJson(request.bodyAsString(), Person.class));
+        return respond().asJson(ImmutableMap.of("success", true));
+    };
+}
+    </pre>
+  </div>
+  <div class="panel-footer">Example Java Application class and Controller</div>
+</div>
+            </div>
+            <div class="col-lg-4">
+              <div class="text-lg-pre mf-blue">
+                <span class="glyphicon glyphicon-tree-deciduous" aria-hidden="true"></span>
+              </div>
+              <p>Garden is a web framework built on top of Fab(ricate).  It’s a Restful, Action based
+                framework with built in support for xml, json, binary files, security, transactions,
+                authentication and authorization.
+              </p>
+              <ul class="list-unorderd">
+                <li>Fewer Annotations</li>
+                <li>Centeralized configuration</li>
+                <li>No AOP</li>
+                <li>Rapid Reloading without byte code manipulation</li>
+              </ul>
+
+              <h3>Get Started</h3>
+              <p><a href="https://github.com/m410/fab#fabricate--command-line-application-installer" target="_blank">First
+                download and install Fab(ricate)</a>.</p>
+              <p><a href="https://github.com/m410/garden/tree/master#m410-web-application-framework" target="_blank">Find
+                information about Garden here.</a></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <h3>Rapid</h3>
+              <p>
+                Garden does not use byte code manipulation, but it can rapidly recompile and reload in development mode.
+                Saving a lot of time in the round trip development life cycle with a minimum of dependencies and overhead.
+              </p>
+            </div>
+            <div class="col-lg-4">
+              <h3>Modular</h3>
+              <p>Garden also takes advantage of fab(ricate)s modular architecture to easily add functionality and
+                dependencies.  Like JPA, JMS and many other service providers.
+              </p>
+              <ul>
+                <li>JPA ORM Module</li>
+              </ul>
+              <p>Some other modules in the works.</p>
+              <ul>
+                <li>Mail Module</li>
+                <li>JMS Module</li>
+                <li>Migration Module</li>
+                <li>JNDI Module</li>
+                <li>Datasource Module</li>
+              </ul>
+            </div>
+            <div class="col-lg-4">
+              <h3>Simple Configuration</h3>
+              <p>Garden was the inspiration for fab(ricate) so of course it uses the single configuration file for all
+                management.  With easy environment switching.
+              </p>
+
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-4">
+              <h3>The Application Class</h3>
+              <p>
+                The application class is the central wiring point for the app.  It handles service wiring, imported
+                service, startup and shutdown.
+              </p>
+            </div>
+            <div class="col-lg-8">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <pre class="brush: java">
+                    // Application Assembly Class
+                    public final class DemoApplication extends Application implements JpaModule {
+                      PersonDao personDao = new PersonDaoImpl();
+                      PersonService personService = new PersonServiceImpl(personDao);
+
+                      @Override public List&lt;HttpCtrl&gt; makeControllers(Configuration c) {
+                        return ImmutableList.of( new PersonController(personService));
+                      }
+                    }
+                  </pre>
+                </div>
+                <div class="panel-footer">Example Application class</div>
+              </div>
+            </div>
+
+        </div>
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <pre class="brush: java">
+ public class MyController extends Controller implements Authorizable {
+     public MyController() {
+         super("basepath");
+         this.roles = Arrays.asList("ADMIN","USER");
+         this.useSsl = Securable.State.Only;
+     }
+     public List&lt;ActionDefinition&gt; actions() {
+         return ImmutableList.of(
+             get("{id:\\d+}", view).contentTypes("text/html").roles("ADMIN")
+         );
+     }
+     Action view = req -&gt; respond().withModel("name","value").withView("/view.jsp");
+ }
+                </pre>
+              </div>
+              <div class="panel-footer">Example Controller class</div>
+            </div>
+          </div>
+          <div name="col-lg-4">
+            <h3>Controllers</h3>
+            <p>
+              A controller is a basic building block of web development.  In the example you can see transaction,
+              content type, and http method, and authorization usage.
+
+            </p>
+          </div>
+        </div>
+    </section>
+    <section class="container">
+      <hr>
+      <a name="info"></a>
+
+      <div class="row">
+        <div class="col-lg-6 col-md-6">
+          <header class="starter-template">
+            <h2>Information</h2>
+          </header>
+
+          <p>All components are open source is freely available with the apache 2.0 license on github.
+          </p>
+          <ul class="list-unstyled">
+            <li><a href="http://github.com/m410/" target="_blank">Project Home</a></li>
+            <li><a href="#" >Installing Fab(ricate)</a></li>
+            <li><a href="#" target="_blank">Using Fab(ricate)</a></li>
+            <li><a href="#" target="_blank">Installing Grarden Project</a></li>
+            <li><a href="#" target="_blank">Running Using Garden</a></li>
+            <li><a href="#" target="_blank">Garden Modules</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <header class="starter-template">
+            <h2>Contact</h2>
+          </header>
+          <p>
+            If your interested in getting involved, please let me know, there's plenty to do and it
+            would be nice to have some partners in crime.
+          </p>
+          <p>
+            Find me on github. <a href="http://m410.github.com">Github</a>
+          </p>
+          <p>
+            Or just send me an email at: <a href="mailto:mfortin@m410.org">Michael Fortin</a>
+          </p>
+        </div>
+      </div>
+    </section>
+    <footer>
+
+    <div class="mf-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <p>
+              <a class="eapps-link" href="http://www.eapps.com/services/general-vps-hosting.php">
+                <img src="http://www.eapps.com/images/logos/eapps_hosted_border.gif" alt="VPS hosting" title="VPS hosting">
+              </a> Much Thanks
+            </p>
+          </div>
+          <div class="col-lg-6">
+            <p>
+              <a href="http://www.apache.org/licenses/LICENSE-2.0">Licensed Under Apache 2</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </footer>
+  </body>
+</html>

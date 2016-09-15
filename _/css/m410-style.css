@@ -1,0 +1,10 @@
+body {padding-top: 50px; }
+h1,h2,h3,h4,h5,h6 {font-family: 'Open Sans', sans-serif;}
+.garden {background-image: url(../images/sleeping-goddess3.png); background-position: center; background-color: black; height:23em}
+.banner {color:#000; padding: 10px 0 1em 0; text-align: center; }
+.banner h1 {font-size:6em;}
+.starter-template {padding: 40px 15px; text-align: center; }
+.text-lg-pre {font-size:4em; float:left; padding: 0 20px }
+.mf-blue {color:#66a}
+.mf-green {color:#3a3}
+.mf-footer {background:#eee;padding:2em 0;}
